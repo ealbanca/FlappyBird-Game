@@ -18,6 +18,8 @@ bird_images = [pygame.image.load("images/parrotDown.png"),
                pygame.image.load("images/parrotUp.png")]
 background_image = pygame.image.load("images/background.png")
 ground_image = pygame.image.load("images/ground.png")
+top_treetrunk_image = pygame.image.load("images/topTreeTrunk.png")
+bottom_treetrunk_image = pygame.image.load("images/bottomTreeTrunk.png")
 
 
 #Exit Game Function to quit the game
