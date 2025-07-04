@@ -8,8 +8,8 @@ clock = pygame.time.Clock()
 
 
 # Set up the window and its dimensions
-win_height = 720
-win_width = 551
+win_height = 800
+win_width = 600
 window= pygame.display.set_mode((win_width, win_height))
 
 # Images
@@ -36,6 +36,10 @@ def main():
         
         quit_game() #When the window is closed
         window.fill((0, 0, 0))  #Reset frame - fill the window with black
+
+        # Draw the background of the game
+        window.blit(background_image, (0, 0))
+
         clock.tick(60)  # Limit the frame rate to 60 FPS
         pygame.display.update()
 
