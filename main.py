@@ -64,6 +64,9 @@ def quit_game():
 
 # Main game Method- loop
 def main():
+
+    bird = pygame.sprite.GroupSingle()  # Initialize a single sprite group for the bird
+    bird.add(Bird())  # Add the Bird sprite to the group
     x_pos_ground, y_pos_ground = 0, 700  # Initial x and y position of the ground
     ground = pygame.sprite.Group()  # Create a sprite group for the ground
     ground.add(Ground(x_pos_ground, y_pos_ground))  # Add the ground sprite to the group
@@ -78,10 +81,9 @@ def main():
         # Draw the background of the game
         window.blit(background_image, (0, 0))
 
-        
-
-        # Draw the ground
+        # Draw the TreeTrunks, ground, and bird
         ground.draw(window)
+        bird.draw(window)
 
         #Spawn the ground at the bottom of the screen
         if len(ground) <= 8:
@@ -89,6 +91,7 @@ def main():
         
         #update - TreeTrunks, ground, and bird
         ground.update()
+        bird.update()
 
         clock.tick(60)  # Limit the frame rate to 60 FPS
         pygame.display.update()
