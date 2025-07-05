@@ -65,7 +65,7 @@ def main():
         ground.draw(window)
 
         #Spawn the ground at the bottom of the screen
-        if len(ground) <= 2:
+        if len(ground) <= 8:
             ground.add(Ground(win_width, y_pos_ground))
         
         #update - TreeTrunks, ground, and bird
