@@ -43,6 +43,19 @@ class Bird(pygame.sprite.Sprite):
             self.image_index = 0
         self.image = bird_images[self.image_index // 10]  # Change the bird image every 10 frames
 
+        # Gravity and Flap
+        self.vel += 0.5  # Gravity effect
+        if self.vel > 7:
+            self.vel = 7
+        if self.rect.y < 600:
+            self.rect.y += int(self.vel)  # Move the bird down by its velocity
+        if self.vel == 0:
+            self.flap = False  # At the highest point, the bird stops flapping
+
+        # Handle user input for flapping
+        if user_input[pygame.K_SPACE] and not self.flap and self.rect.y > 0:
+            self.flap = True  # Set flap to True when space is pressed
+            self.vel = -7  # Set the velocity to a negative value to make the bird flap upwards
 
 # Create a class for the Ground
 class Ground(pygame.sprite.Sprite):
@@ -80,6 +93,9 @@ def main():
         quit_game() #When the window is closed
         window.fill((0, 0, 0))  #Reset frame - fill the window with black
 
+        #User input
+        user_input = pygame.key.get_pressed()
+
         # Draw the background of the game
         window.blit(background_image, (0, 0))
 
@@ -93,7 +109,7 @@ def main():
         
         #update - TreeTrunks, ground, and bird
         ground.update()
-        bird.update()
+        bird.update(user_input)
 
         clock.tick(60)  # Limit the frame rate to 60 FPS
         pygame.display.update()
