@@ -21,9 +21,16 @@ ground_image = pygame.image.load("images/ground.png")
 top_treetrunk_image = pygame.image.load("images/topTreeTrunk.png")
 bottom_treetrunk_image = pygame.image.load("images/bottomTreeTrunk.png")
 
+
 # Game Variables
 scroll_speed = 1 # Speed at which the background scrolls
+bird_start_position = (100, 300)  # Starting position of the bird
 
+#Create a class for the Bird
+class Bird(pygame.sprite.Sprite):
+
+
+# Create a class for the Ground
 class Ground(pygame.sprite.Sprite):
     def __init__(self, x, y): # Initialize the Ground class
         pygame.sprite.Sprite.__init__(self)
