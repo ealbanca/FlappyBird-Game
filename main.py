@@ -1,5 +1,6 @@
 import pygame
 from sys import exit
+import random
 
 # Importing the pygame library
 # Initialize Pygame
@@ -51,6 +52,9 @@ class Bird(pygame.sprite.Sprite):
             self.rect.y += int(self.vel)  # Move the bird down by its velocity
         if self.vel == 0:
             self.flap = False  # At the highest point, the bird stops flapping
+
+        # Rotate the bird image based on its velocity
+        self.image = pygame.transform.rotate(self.image, self.vel * -2)
 
         # Handle user input for flapping
         if user_input[pygame.K_SPACE] and not self.flap and self.rect.y > 0:
