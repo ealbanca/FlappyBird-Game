@@ -75,8 +75,8 @@ class Ground(pygame.sprite.Sprite):
             self.kill()
 
 # Create a class for the TreeTrunks
-class TreeTrunks(pygame.sprite.Sprite):
-    def __init__(self, x, y, image):  # Initialize the TreeTrunks class
+class TreeTrunk(pygame.sprite.Sprite):
+    def __init__(self, x, y, image):  # Initialize the TreeTrunk class
         pygame.sprite.Sprite.__init__(self)
         self.image = image
         self.rect = self.image.get_rect()
@@ -136,9 +136,11 @@ def main():
         if TreeTrunks_timer <= 0:
             x_top, x_bottom = 550, 550  # X positions for the top and bottom TreeTrunks
             y_top = random.randint(-600, -480)  # Random Y position for the top TreeTrunk
-            y_bottom = y_top + random.randint(200, 300) + bottom_treetrunk_image.get_height()  # Y position for the bottom TreeTrunk
-            TreeTrunks.add(TreeTrunks(x_top, y_top, top_treetrunk_image))
-            TreeTrunks.add(TreeTrunks(x_bottom, y_bottom, bottom_treetrunk_image))
+            y_bottom = y_top + random.randint(90, 130) + bottom_treetrunk_image.get_height()  # Y position for the bottom TreeTrunk
+            TreeTrunks.add(TreeTrunk(x_top, y_top, top_treetrunk_image))
+            TreeTrunks.add(TreeTrunk(x_bottom, y_bottom, bottom_treetrunk_image))
+            TreeTrunks_timer = random.randint(180, 250)  # Reset the timer to a random value between 50 and 100
+        TreeTrunks_timer -= 1 
 
         #update - TreeTrunks, ground, and bird
         TreeTrunks.update()
