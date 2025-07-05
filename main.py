@@ -28,6 +28,18 @@ bird_start_position = (100, 300)  # Starting position of the bird
 
 #Create a class for the Bird
 class Bird(pygame.sprite.Sprite):
+    def __init__(self):  # Initialize the Bird class
+        pygame.sprite.Sprite.__init__(self)
+        self.image = bird_images[0]
+        self.rect = self.image.get_rect()
+        self.rect.center = bird_start_position
+        self.image_index = 0  # Index for bird animation
+
+    def update(self):  # Update the bird's position and animation
+        self.image_index += 1
+        if self.image_index >= 30: # Restart the animation after 30 frames (10 frames per image)
+            self.image_index = 0
+        self.image = bird_images[self.image_index // 10]  # Change the bird image every 10 frames
 
 
 # Create a class for the Ground
