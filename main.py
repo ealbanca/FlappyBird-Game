@@ -74,6 +74,19 @@ class Ground(pygame.sprite.Sprite):
         if self.rect.x <= -win_width:
             self.kill()
 
+# Create a class for the TreeTrunks
+class TreeTrunks(pygame.sprite.Sprite):
+    def __init__(self, x, y, image):  # Initialize the TreeTrunks class
+        pygame.sprite.Sprite.__init__(self)
+        self.image = image
+        self.rect = self.image.get_rect()
+        self.rect.x, self.rect.y = x, y
+
+    def update(self):  # Update the position of the TreeTrunks(move the TreeTrunks)
+        self.rect.x -= scroll_speed
+        if self.rect.x <= -win_width:
+            self.kill() # Remove the TreeTrunks when they move off-screen
+
 #Exit Game Function to quit the game
 def quit_game():
     for event in pygame.event.get():
@@ -83,12 +96,19 @@ def quit_game():
 
 # Main game Method- loop
 def main():
-
-    bird = pygame.sprite.GroupSingle()  # Initialize a single sprite group for the bird
+    #Initialize the Bird
+    bird = pygame.sprite.GroupSingle()
     bird.add(Bird())  # Add the Bird sprite to the group
+
+    #Initialize the Ground
     x_pos_ground, y_pos_ground = 0, 700  # Initial x and y position of the ground
     ground = pygame.sprite.Group()  # Create a sprite group for the ground
     ground.add(Ground(x_pos_ground, y_pos_ground))  # Add the ground sprite to the group
+
+    #Initialize the TreeTrunks
+    TreeTrunks_timer = 0  # Timer for spawning TreeTrunks
+    TreeTrunks = pygame.sprite.Group()  # Create a sprite group for the TreeTrunks
+
 
 
     run = True
@@ -104,14 +124,24 @@ def main():
         window.blit(background_image, (0, 0))
 
         # Draw the TreeTrunks, ground, and bird
+        TreeTrunks.draw(window)
         ground.draw(window)
         bird.draw(window)
 
         #Spawn the ground at the bottom of the screen
         if len(ground) <= 8:
             ground.add(Ground(win_width, y_pos_ground))
-        
+
+        #Spawn the TreeTrunks at random intervals
+        if TreeTrunks_timer <= 0:
+            x_top, x_bottom = 550, 550  # X positions for the top and bottom TreeTrunks
+            y_top = random.randint(-600, -480)  # Random Y position for the top TreeTrunk
+            y_bottom = y_top + random.randint(200, 300) + bottom_treetrunk_image.get_height()  # Y position for the bottom TreeTrunk
+            TreeTrunks.add(TreeTrunks(x_top, y_top, top_treetrunk_image))
+            TreeTrunks.add(TreeTrunks(x_bottom, y_bottom, bottom_treetrunk_image))
+
         #update - TreeTrunks, ground, and bird
+        TreeTrunks.update()
         ground.update()
         bird.update(user_input)
 
