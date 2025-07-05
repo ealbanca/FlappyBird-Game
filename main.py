@@ -34,8 +34,10 @@ class Bird(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.center = bird_start_position
         self.image_index = 0  # Index for bird animation
+        self.vel = 0  # Vertical velocity of the bird
+        self.flap = False  
 
-    def update(self):  # Update the bird's position and animation
+    def update(self, user_input):  # Update the bird's position and animation
         self.image_index += 1
         if self.image_index >= 30: # Restart the animation after 30 frames (10 frames per image)
             self.image_index = 0
